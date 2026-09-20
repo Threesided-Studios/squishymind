@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -12,28 +11,6 @@ export const metadata: Metadata = {
   title: 'Account — SquishyMind',
   description: 'Your SquishyMind profile, founder status, and account settings.',
 };
-
-async function deleteAccount() {
-  'use server';
-  const cookieStore = await cookies();
-  const cookieHeader = cookieStore
-    .getAll()
-    .map((c) => `${c.name}=${c.value}`)
-    .join('; ');
-
-  const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/account/delete`, {
-    method: 'POST',
-    headers: { Cookie: cookieHeader },
-    cache: 'no-store',
-  });
-
-  if (!res.ok) {
-    const { error } = await res.json().catch(() => ({ error: 'unknown' }));
-    throw new Error(`Account deletion failed: ${error}`);
-  }
-
-  redirect('/?deleted=1');
-}
 
 export default async function AccountPage() {
   const supabase = await createClient();
@@ -87,7 +64,7 @@ export default async function AccountPage() {
             Permanently deletes your account, all your mind maps, and all
             collaborator invites. No email confirmation. No undo.
           </p>
-          <DeleteAccountButton action={deleteAccount} />
+          <DeleteAccountButton />
         </section>
 
         <p className="text-center text-sm text-[--text-dim] mt-8">

@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
-import { revalidatePath } from 'next/cache';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import DeleteMapButton from '@/components/DeleteMapButton';
@@ -14,14 +13,6 @@ export const metadata: Metadata = {
   title: 'Dashboard — SquishyMind',
   description: 'Your mind maps. Create, rename, delete, or open one.',
 };
-
-async function deleteMindmap(formData: FormData) {
-  'use server';
-  const id = formData.get('id') as string;
-  const supabase = await createClient();
-  await supabase.from('mindmaps').delete().eq('id', id);
-  revalidatePath('/dashboard');
-}
 
 export default async function DashboardPage() {
   const supabase = await createClient();
@@ -86,7 +77,7 @@ export default async function DashboardPage() {
                       Share link
                     </Link>
                   )}
-                  <DeleteMapButton id={m.id} action={deleteMindmap} />
+                  <DeleteMapButton id={m.id} />
                 </div>
               </li>
             ))}
