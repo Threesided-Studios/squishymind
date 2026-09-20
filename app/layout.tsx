@@ -3,6 +3,7 @@ import Script from 'next/script';
 import './globals.css';
 import SquishyWidget from '@/components/SquishyWidget';
 import SquishyToolBridge from '@/components/SquishyToolBridge';
+import DeploySkewRecovery from '@/components/DeploySkewRecovery';
 
 // Umami Cloud. The id is public (it ships in the page HTML) so it lives here
 // rather than in an env var that could silently go missing on a redeploy.
@@ -51,6 +52,7 @@ export default function RootLayout({
       </head>
       <body>
         {children}
+        <DeploySkewRecovery />
         <SquishyWidget />
         <SquishyToolBridge />
         <Script
