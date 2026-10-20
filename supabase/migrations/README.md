@@ -1,6 +1,7 @@
 # Supabase migrations
 
 Numbered files (`NNNN_name.sql`). Applied through the Supabase Management API (see CLAUDE.md); prod has no `supabase_migrations` history table.
+
 ## New tables need explicit Data API grants (Supabase change, Oct 30 2026)
 
 From **2026-10-30** Supabase stops auto-granting `anon`, `authenticated` and
