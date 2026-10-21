@@ -204,3 +204,9 @@ Admin section + analytics dashboard shipped between v3.5 and v3.6
   allow-list entries pile up
 - Do not promise "free forever" — see `app/founder-access/page.tsx` for the
   honest framing we settled on
+
+## Supabase: new tables need explicit grants (from 2026-10-30)
+
+Every migration that creates a `public` table, view, sequence or RPC must grant
+it to the Data API roles in the same file (RLS stays the real gate). Template
+and rules: `supabase/migrations/README.md`.
