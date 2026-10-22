@@ -1,5 +1,6 @@
+import { IMAGE_MODEL } from '../lib/ai-models.mjs';
 // One-off generator: creates a branded hero image per blog post via the
-// OpenAI Images API (gpt-image-1) and writes them to public/blog/<slug>.png.
+// OpenAI Images API (gpt-image-2.5-flare) and writes them to public/blog/<slug>.png.
 // These double as the in-page hero AND the OG/social card for each post.
 //
 //   node scripts/gen-blog-images.mjs            # only missing images
@@ -87,7 +88,7 @@ async function gen(slug, subject) {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${KEY}` },
     body: JSON.stringify({
-      model: 'gpt-image-1',
+      model: IMAGE_MODEL,
       prompt,
       n: 1,
       size: '1536x1024',

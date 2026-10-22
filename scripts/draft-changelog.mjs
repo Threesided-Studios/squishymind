@@ -1,5 +1,6 @@
 #!/usr/bin/env node
-// Drafts the next entry for lib/changelog-data.ts using gpt-4o-mini.
+import { TEXT_MODEL } from '../lib/ai-models.mjs';
+// Drafts the next entry for lib/changelog-data.ts using gpt-6-luna.
 //
 // Usage:
 //   node --env-file=.env.local scripts/draft-changelog.mjs           # print proposal
@@ -89,7 +90,8 @@ const today = new Date().toLocaleString('en-US', {
 console.log(`Drafting from ${recentCommits.length} commits since ${since}...`);
 
 const completion = await openai.chat.completions.create({
-  model: 'gpt-4o-mini',
+  model: TEXT_MODEL,
+  reasoning_effort: "none",
   messages: [
     {
       role: 'system',
@@ -127,7 +129,7 @@ Draft the next entry.`,
   ],
   response_format: { type: 'json_object' },
   temperature: 0.6,
-  max_tokens: 700,
+  max_completion_tokens: 700,
 });
 
 const raw = completion.choices[0]?.message?.content || '{}';
