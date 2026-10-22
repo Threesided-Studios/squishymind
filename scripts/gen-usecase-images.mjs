@@ -1,3 +1,4 @@
+import { IMAGE_MODEL } from '../lib/ai-models.mjs';
 // Generates 5 branded persona hero images via the OpenAI Images API
 // and writes them to public/usecases/<id>.jpg.
 //
@@ -57,7 +58,7 @@ async function gen(id, subject) {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${KEY}` },
     body: JSON.stringify({
-      model: 'gpt-image-1',
+      model: IMAGE_MODEL,
       prompt,
       n: 1,
       size: '1536x1024',

@@ -1,3 +1,4 @@
+import { TEXT_MODEL } from '@/lib/ai-models.mjs';
 import { NextResponse, type NextRequest } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { openai } from '@/lib/openai';
@@ -50,14 +51,15 @@ export async function POST(
   let raw = '';
   try {
     const completion = await openai.chat.completions.create({
-      model: 'gpt-4o-mini',
+      model: TEXT_MODEL,
+      reasoning_effort: "none",
       messages: [
         { role: 'system', content: assistSystemPrompt(action) },
         { role: 'user', content: assistUserPrompt(action, outline, body.focusLabel) },
       ],
       response_format: { type: 'json_object' },
       temperature: action === 'summarize' ? 0.4 : 0.8,
-      max_tokens: 700,
+      max_completion_tokens: 700,
     });
     raw = completion.choices[0]?.message?.content || '{}';
   } catch (e) {
