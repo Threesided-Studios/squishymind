@@ -25,6 +25,10 @@ export default function SquishyWidget() {
   const widgetRef = useRef<HTMLElement | null>(null);
   const [resumedId, setResumedId] = useState<string | null>(null);
   const [mounted, setMounted] = useState(false);
+  // Short, narrow viewports (foldable cover, phone landscape) can't spare
+  // the expanded "Need help?" card — it sits on the hero. The tiny launcher
+  // stays in the corner. Taller and desktop widths keep the default card.
+  const [compactLauncher, setCompactLauncher] = useState(false);
   // Auth is resolved client-side so the root layout can stay static (no
   // server-side cookie read). Starts logged-out for the first paint, then
   // resolves once Supabase answers and on any future auth-state change.
@@ -37,7 +41,12 @@ export default function SquishyWidget() {
   // On first mount, attempt to resume an existing conversation from localStorage.
   useEffect(() => {
     setResumedId(loadConversationId());
+    const mq = window.matchMedia('(max-height: 520px) and (max-width: 800px)');
+    const sync = () => setCompactLauncher(mq.matches);
+    sync();
+    mq.addEventListener('change', sync);
     setMounted(true);
+    return () => mq.removeEventListener('change', sync);
   }, []);
 
   // Resolve auth client-side (keeps the layout — and every public page —
@@ -139,9 +148,13 @@ export default function SquishyWidget() {
     <>
       {/* @ts-expect-error — convai is a custom element not in TS types */}
       <elevenlabs-convai
+        key={compactLauncher ? 'compact' : 'default'}
         ref={widgetRef}
         agent-id={AGENT_ID}
         dynamic-variables={initialVars}
+        {...(compactLauncher
+          ? { variant: 'tiny', 'default-expanded': 'false' }
+          : {})}
         {...(resumedId ? { 'conversation-id': resumedId } : {})}
       />
       <Script

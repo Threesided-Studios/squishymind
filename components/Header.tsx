@@ -24,7 +24,7 @@ const PILL_CONTENT =
 // it, can be statically rendered / ISR instead of forced dynamic.
 export default function Header() {
   return (
-    <header className="flex items-center justify-between gap-3 px-4 sm:px-6 py-2 sm:py-4 border-b border-white/5 min-h-[56px]">
+    <header className="flex max-sm:flex-wrap items-center justify-between gap-x-3 gap-y-2 px-4 sm:px-6 py-2 sm:py-4 border-b border-white/5 min-h-[56px]">
       <Link href="/" className="flex items-center gap-3 group shrink-0">
         <img
           src="/brain.svg"
@@ -36,7 +36,9 @@ export default function Header() {
         <span className="text-xl font-semibold gradient-text">SquishyMind</span>
       </Link>
 
-      <nav className="flex items-center gap-2">
+      {/* Below `sm` the action cluster drops onto its own row instead of
+          squeezing the auth labels onto two lines inside each pill. */}
+      <nav className="flex items-center gap-2 max-sm:ml-auto max-sm:shrink-0">
         {/* Content pills — mirror the footer. Hidden on small screens where
             they'd overflow; the footer still lists them all there. */}
         <span className="hidden lg:flex items-center gap-1.5">

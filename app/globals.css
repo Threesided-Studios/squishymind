@@ -310,3 +310,39 @@ h1, h2, h3 { text-wrap: balance; }
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
+
+/* Short landscape / foldable cover (e.g. 594×406). The default hero stack
+   plus the expanded chat card bury the headline. Tighten the hero and leave
+   the bottom-right corner for the tiny launcher. Desktop widths are outside
+   this query, so the 1440 layout is unchanged. */
+@media (max-height: 520px) and (max-width: 800px) {
+  .hero {
+    padding-top: 0.5rem;
+    padding-bottom: 2.5rem;
+  }
+  .hero .hero-mark {
+    margin-top: 0.4rem;
+    margin-bottom: 0.4rem;
+  }
+  .hero .brain-enter {
+    width: 56px;
+    height: 46px;
+  }
+  .hero h1 {
+    font-size: 2.05rem;
+    line-height: 1.05;
+    margin-bottom: 0.55rem;
+  }
+  .hero .hero-lead {
+    margin-bottom: 0.6rem;
+    font-size: 0.92rem;
+    line-height: 1.35;
+  }
+  .hero .hero-actions {
+    padding-right: 4.5rem;
+  }
+  .hero .hero-actions .btn-primary {
+    font-size: 1rem;
+    padding: 0.65rem 1.25rem;
+  }
+}

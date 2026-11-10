@@ -69,9 +69,9 @@ export default function HomePage() {
 
       <main className="px-4 sm:px-6">
         {/* HERO */}
-        <section className="max-w-5xl mx-auto pt-8 sm:pt-12 md:pt-20 pb-20 text-center">
+        <section className="hero max-w-5xl mx-auto pt-8 sm:pt-12 md:pt-20 pb-20 text-center">
           <BetaBanner />
-          <div className="flex justify-center mt-8 sm:mt-10 mb-6 sm:mb-8">
+          <div className="hero-mark flex justify-center mt-8 sm:mt-10 mb-6 sm:mb-8">
             <div className="brain-enter animate-[wobble_3.6s_ease-in-out_infinite] origin-bottom w-[120px] h-[100px] sm:w-[240px] sm:h-[200px]" style={{ animationDelay: '0s, 0.8s' }}>
               <img src="/brain.svg" alt="" width={240} height={200} className="w-full h-full" />
             </div>
@@ -80,14 +80,14 @@ export default function HomePage() {
             Your brain, but{' '}
             <span className="gradient-text">squishier</span>.
           </h1>
-          <p className="text-lg md:text-xl text-[--text-dim] mb-10 max-w-3xl mx-auto leading-relaxed">
+          <p className="hero-lead text-lg md:text-xl text-[--text-dim] mb-10 max-w-3xl mx-auto leading-relaxed">
             A wobbly, slightly sentient mind-mapping canvas you can talk to, build with friends, or
             click and drag like a normal person.{' '}
             <span className="text-white">
               Beta is free. Founders get a permanent discount when paid tiers launch.
             </span>
           </p>
-          <div className="flex items-center justify-center gap-4 flex-wrap">
+          <div className="hero-actions flex items-center justify-center gap-4 flex-wrap">
             <Link href="/signup" className="btn btn-primary text-lg px-10 py-4">
               Claim Founder Access →
             </Link>
